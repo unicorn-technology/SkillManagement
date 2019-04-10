@@ -1,6 +1,8 @@
 package com.unicornholdings.skillmanagement;
 
-class Courses {
+import java.io.Serializable;
+
+class Courses implements Serializable {
 
     public String getCourseName() {
         return courseName;

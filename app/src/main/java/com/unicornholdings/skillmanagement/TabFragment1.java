@@ -101,12 +101,20 @@ public class TabFragment1 extends AppCompatDialogFragment {
 
             Collections.sort(teamNames);*/
         courses = new ArrayList<Courses>();
-        courses.add(new Courses("Test1","120","www.google.com"));
-        courses.add(new Courses("Test2","121","www.facebook.com"));
-        courses.add(new Courses("Test2","122","www.twitter.com"));
+        courses.add(new Courses("Java Course Medium","300","https://www.youtube.com/watch?v=R08YRplsYGw"));
+        courses.add(new Courses("Java Course Easy","34","https://www.youtube.com/watch?v=WPvGqX-TXP0"));
+        courses.add(new Courses("Java Course Hard","300","https://www.youtube.com/watch?v=R08YRplsYGw"));
 
     }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && this.getContext() != null) {
 
+            setUpArrayList();
+            initRecyclerView();
+        }
+    }
     private void initRecyclerView (){
 
         m1LayoutManager = new LinearLayoutManager(this.getActivity());

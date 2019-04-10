@@ -2,23 +2,20 @@ package com.unicornholdings.skillmanagement;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.IOException;
 
 
 public class AssignCourseFragment extends AppCompatDialogFragment {
@@ -46,7 +43,7 @@ public class AssignCourseFragment extends AppCompatDialogFragment {
     @Override
     public void onResume() {
         super.onResume();
-        getDialog().getWindow().setLayout(900 ,1400);
+        getDialog().getWindow().setLayout( 1000 ,1800);
     }
 
     @Nullable
@@ -58,11 +55,7 @@ public class AssignCourseFragment extends AppCompatDialogFragment {
         Log.d(TAG, "onCreate: Starting.");
 
 
-        // Set transparent background and no title
-        if (getDialog() != null && getDialog().getWindow() != null) {
-            getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        }
+
 
         closeDialog = v.findViewById(R.id.closeDialog);
         playerTitle = v.findViewById(R.id.dialogTitle);
@@ -76,7 +69,21 @@ public class AssignCourseFragment extends AppCompatDialogFragment {
                 dismiss();
             }
         });
+        assignButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    User user = (User) InternalStorage.readObject(getContext(),"User");
+                    user.addCourses( course );
+                    InternalStorage.writeObject(getContext(),"User",user);
 
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         courseName.setText(course.getCourseName());
         courseDuration.setText(course.getCourseDuration());
         courseDuration.setText("You Tube");
@@ -84,8 +91,7 @@ public class AssignCourseFragment extends AppCompatDialogFragment {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) v.findViewById(R.id.container);
 
-        TabLayout tabLayout = (TabLayout) v.findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
+
 
 
         return v;

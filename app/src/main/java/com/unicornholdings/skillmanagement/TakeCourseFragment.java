@@ -3,20 +3,16 @@ package com.unicornholdings.skillmanagement;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,7 +34,7 @@ public class TakeCourseFragment extends AppCompatDialogFragment {
 
     private ViewPager mViewPager;
     private Courses course;
-
+    private User user;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -49,7 +45,7 @@ public class TakeCourseFragment extends AppCompatDialogFragment {
     @Override
     public void onResume() {
         super.onResume();
-        getDialog().getWindow().setLayout(900 ,1400);
+        getDialog().getWindow().setLayout(1400 ,1800);
     }
 
     @Nullable
@@ -61,11 +57,7 @@ public class TakeCourseFragment extends AppCompatDialogFragment {
         Log.d(TAG, "onCreate: Starting.");
 
 
-        // Set transparent background and no title
-        if (getDialog() != null && getDialog().getWindow() != null) {
-            getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        }
+
 
         closeDialog = v.findViewById(R.id.closeDialog);
         playerTitle = v.findViewById(R.id.dialogTitle);
@@ -77,13 +69,14 @@ public class TakeCourseFragment extends AppCompatDialogFragment {
 
         takeCourseButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(course.getURL()));
                 startActivity(browserIntent);
             }
         });
         takeTestButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 TakeTestFragment playerInfoDialogFragment = new TakeTestFragment();
+                playerInfoDialogFragment.setSelection( user);
                 playerInfoDialogFragment.show(getFragmentManager(),"info pop up");
             }
         });
@@ -94,9 +87,8 @@ public class TakeCourseFragment extends AppCompatDialogFragment {
             }
         });
 
-        courseName.setText(course.getCourseName());
+        courseProvider.setText(course.getCourseName());
         courseDuration.setText(course.getCourseDuration());
-        courseDuration.setText("You Tube");
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) v.findViewById(R.id.container);
@@ -122,8 +114,9 @@ public class TakeCourseFragment extends AppCompatDialogFragment {
         */
     }
 
-    public void setSelection( Courses course ){
+    public void setSelection(Courses course, User user){
         this.course = course;
+        this.user   = user;
     }
 
     @Override

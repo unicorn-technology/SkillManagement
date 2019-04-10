@@ -1,15 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Tab 3"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/SkillMatrixRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="457dp"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/transparent"
+        android:clipChildren="true"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contestLeaderBoardTitleBackground"
+        app:layout_constraintVertical_bias="1.0"></android.support.v7.widget.RecyclerView>
 
-</RelativeLayout>
+    <ImageView
+        android:id="@+id/contestLeaderBoardTitleBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:layout_marginTop="4dp"
+        android:adjustViewBounds="true"
+        android:cropToPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.067"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/courseName"
+        android:layout_width="32dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="User"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/contestLeaderBoardTitleBackground"
+        app:layout_constraintStart_toStartOf="@+id/contestLeaderBoardTitleBackground"
+        app:layout_constraintTop_toTopOf="@+id/contestLeaderBoardTitleBackground"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/userName2"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="8dp"
+        android:text="Course"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/contestLeaderBoardTitleBackground"
+        app:layout_constraintTop_toTopOf="@+id/contestLeaderBoardTitleBackground" />
+
+    <TextView
+        android:id="@+id/duration"
+        android:layout_width="50dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="292dp"
+        android:layout_marginLeft="292dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Skill Result"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/contestLeaderBoardTitleBackground"
+        app:layout_constraintStart_toStartOf="@+id/contestLeaderBoardTitleBackground"
+        app:layout_constraintTop_toTopOf="@+id/contestLeaderBoardTitleBackground"
+        app:layout_constraintVertical_bias="0.0" />
+
+</android.support.constraint.ConstraintLayout>

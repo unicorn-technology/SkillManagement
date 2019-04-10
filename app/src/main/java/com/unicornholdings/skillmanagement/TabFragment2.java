@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 
 import org.json.JSONException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -30,6 +31,7 @@ public class TabFragment2 extends AppCompatDialogFragment {
     private MyCourseRecycleViewAdapter m1Adapter;
     private RecyclerView.LayoutManager m1LayoutManager;
     private ArrayList<Courses> courses;
+    private User user;
 
 
     @Override
@@ -59,7 +61,7 @@ public class TabFragment2 extends AppCompatDialogFragment {
         m1RecyclerView = v.findViewById(R.id.CourseAssignedRecyclerView);
         setUpArrayList();
         initRecyclerView();
-
+        user = new User( "Test User",  0);
 
         return v;
     }
@@ -81,13 +83,25 @@ public class TabFragment2 extends AppCompatDialogFragment {
     private void setUpArrayList(){
 
 
-        courses = new ArrayList<Courses>();
-        courses.add(new Courses("Test1","120","www.google.com"));
-        courses.add(new Courses("Test2","121","www.facebook.com"));
-        courses.add(new Courses("Test2","122","www.twitter.com"));
+        try {
+          User  user = (User) InternalStorage.readObject(this.getContext(),"User");
+          this.courses = user.getCourses();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && this.getContext() != null) {
 
+            setUpArrayList();
+            initRecyclerView();
+        }
+    }
     private void initRecyclerView (){
 
         m1LayoutManager = new LinearLayoutManager(this.getActivity());
@@ -109,7 +123,7 @@ public class TabFragment2 extends AppCompatDialogFragment {
 
     private void previewButtonClicked(Courses team) {
         TakeCourseFragment playerInfoDialogFragment = new TakeCourseFragment();
-        playerInfoDialogFragment.setSelection(team);
+        playerInfoDialogFragment.setSelection(team,user);
         playerInfoDialogFragment.show(getFragmentManager(),"info pop up");
     }
 }

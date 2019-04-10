@@ -20,6 +20,8 @@ import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
     private EditText usernameView;
     private EditText passwordView;
@@ -69,6 +71,12 @@ public class MainActivity extends AppCompatActivity {
 
 
                 Intent intent=new Intent(getApplicationContext(), TabbedView.class);
+                User user = new User ( String.valueOf(usernameView.getText()), 0);
+                try {
+                    InternalStorage.writeObject(getApplicationContext(),"User",user);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 startActivity(intent);
                 finish();
 

@@ -14,7 +14,8 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent">
+        android:background="@android:color/transparent"
+        tools:layout_editor_absoluteY="56dp">
 
         <TextView
             android:id="@+id/dialogTitle"
@@ -115,41 +116,5 @@
             app:layout_constraintTop_toBottomOf="@+id/dialogTitle" />
 
     </android.support.constraint.ConstraintLayout>
-
-    <ImageView
-        android:id="@+id/gap2"
-        android:layout_width="match_parent"
-        android:layout_height="16dp"
-        android:layout_gravity="bottom"
-        app:layout_anchor="@id/constraintLayout"
-        app:layout_anchorGravity="bottom" />
-
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/transparent"
-        android:paddingRight="4dp"
-        android:paddingLeft="4dp"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:layout_anchor="@id/gap2"
-        app:layout_anchorGravity="bottom">
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-
-            app:tabTextColor="#1B1464" />
-
-    </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </android.support.design.widget.CoordinatorLayout>
